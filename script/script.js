@@ -1,32 +1,17 @@
 'use strict';
-// const money = 700;
-// const income = "Frilance";
-// const addExpenses = "Интренет, Телефон, Бензин";
-// const deposit = true;
-// const mission = 2000;
-// const period  = 12;
-
-
-// console.log(money, income, deposit);
-// console.log(addExpenses.length);
-// console.log('Период равен ' +  period  + ' месяцев' + ' Цель заработать ' + mission  + ' Рублей' );
-// console.log(addExpenses.toLowerCase());
-// console.log(addExpenses.split( ' ' ));
-
-// const budgetDay = Math.floor(budgetMonth / 30);
-// console.log(budgetDay);
 const  income = 'Frilance',
-      mission = 500000;
-const money = +prompt('Ваш месячный доход?', '100');
-const addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Квартплата, проездной, кредит');
-const deposit = !!prompt('Есть ли у вас депозит в банке?', 'Нет');
-const expenses1 = prompt('Введите обязательную статью расходов?', 'Квартплата');
-const expenses2 = prompt('Введите обязательную статью расходов?', 'Проездной');
-const amount2 = +prompt('Во сколько это обойдется?', '1000');
-const amount1 = +prompt('Во сколько это обойдется?', '5000');
+       mission = 500000;
+const money = +prompt('Ваш месячный доход?', '100'),
+      addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Квартплата, проездной, кредит'),
+      deposit = confirm('Есть ли у вас депозит в банке?', 'Нет'),
+      expenses1 = prompt('Введите обязательную статью расходов?', 'Квартплата'),
+      amount1 = +prompt('Во сколько это обойдется?', '5000'),
+      expenses2 = prompt('Введите обязательную статью расходов?', 'Проездной'),
+      amount2 = +prompt('Во сколько это обойдется?', '1000');
+
 const budgetMonth = money - amount1 - amount2,
-    budgetDay = Math.floor(budgetMonth / 30),
-    period = Math.ceil(mission / budgetMonth);
+      budgetDay = Math.floor(budgetMonth / 30),
+      period = Math.ceil(mission / budgetMonth);
 
 console.log(typeof money);
 console.log(typeof income);
