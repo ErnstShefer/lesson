@@ -9,27 +9,50 @@ const money = +prompt('Ваш месячный доход?', '100'),
       expenses2 = prompt('Введите обязательную статью расходов?', 'Проездной'),
       amount2 = +prompt('Во сколько это обойдется?', '1000');
 
-const budgetMonth = money - amount1 - amount2,
-      budgetDay = Math.floor(budgetMonth / 30),
-      period = Math.ceil(mission / budgetMonth);
 
-console.log(typeof money);
-console.log(typeof income);
-console.log(typeof deposit);
-console.log(addExpenses.length);
-console.log(`Период равен ${period} месяцев`);
-console.log(`Цель заработать ${mission} рублей`);
+
+const showTypeOf = function(data){
+  console.log(typeof(data));
+  };
+
+
+const getExpensesMonth = function(param1, param2){
+    return (param1 + param2);
+  };
+
+
+const getAccumulatedMonth = function(a, b){
+    return (a - b);
+  };
+
+const accumulatedMonth = getAccumulatedMonth(money, getExpensesMonth(amount1, amount2));
+const budgetDay = Math.floor(accumulatedMonth / 30)
+
+const getTargetMonth = function(par1, par2){
+    return Math.ceil(par1 / par2);
+  };
+
+  const getStatusIncome = function(){
+    if (budgetDay >= 1200){
+      return ('У вас высокий уровень дохода');
+    } 
+    else if (budgetDay >= 600 && budgetDay < 1200){
+      return ('У вас средний уровень дохода');
+    } 
+    else if (budgetDay >= 0 && budgetDay < 600){
+      return ('К сожалению у вас уровень дохода ниже среднего');
+    } 
+    else {
+      return ('Что то пошло не так');
+    }
+  };
+
+showTypeOf(money);
+showTypeOf(income);
+showTypeOf(deposit);
+
+console.log('Расходы за месяц: ', getExpensesMonth(amount1, amount2));
 console.log(addExpenses.toLowerCase().split(', '));
-console.log(`Бюджет на месяц: ${budgetMonth}`);
+console.log('Cрок достижения цели в месяцах: ', getTargetMonth(mission, accumulatedMonth));
 console.log(`Бюджет на день: ${budgetDay}`);
-console.log(`Цель будет достигнута за ${period} месяцев(-а)`);
-
-if(budgetDay >= 1200){
-    console.log('У вас высокий уровень дохода');
-} else if (budgetDay < 1200 && budgetDay >=600){
-    console.log('У вас средний уровень дохода');
-}  else if (budgetDay < 600 && budgetDay >=0){
-    console.log('К сожалению у вас уровень дохода ниже среднего');
-} else {
-    console.log('Что то пошло не так');
-}
+console.log(getStatusIncome());
