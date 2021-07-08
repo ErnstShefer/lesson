@@ -218,7 +218,7 @@ class AppData {
         alert('Введите корректное значение в поле проценты');
         start.disabled = true;
         depositPercent.value = '';
-      } else if (depositPercent.value < 0 || depositPercent.value > 100) {
+      } if (depositPercent.value < 0 || depositPercent.value > 100) {
         alert('Процент не может быть больше 100');
         depositPercent.value = '';
       } else {
