@@ -34,7 +34,7 @@ window.addEventListener('DOMContentLoaded', function() {
       }
   
     }
-    countTimer('12 july 2021');
+    countTimer('25 july 2021');
     
     // Menu
 
@@ -66,18 +66,16 @@ window.addEventListener('DOMContentLoaded', function() {
 
    // PopUp
    const togglePopUp = () => {
-
     const popup = document.querySelector('.popup'),
-    popupBtn = document.querySelectorAll('.popup-btn'),
-    popUpClose = document.querySelector('.popup-close'),
-    popupContent = document.querySelector('.popup-content');
+          popupBtn = document.querySelectorAll('.popup-btn'),
+          popupContent = document.querySelector('.popup-content');
 
     let count = 0;
     let flyInterval;
     let flyAnimate = () => {
       count++;
-      if(count < 361){
-        popupContent.style.transform = `rotate(${count}deg)`;
+      if(count < 60.1){
+        popupContent.style.transform = `rotate(${count * 6}deg)`;
       } else {
         cancelAnimationFrame(flyInterval);
         count = 0;
@@ -85,7 +83,7 @@ window.addEventListener('DOMContentLoaded', function() {
       }
       flyInterval = requestAnimationFrame(flyAnimate);
     };
-
+    
     popupBtn.forEach((elem) => {
       elem.addEventListener('click', () => {
         if(document.documentElement.clientWidth < 768){
@@ -96,15 +94,25 @@ window.addEventListener('DOMContentLoaded', function() {
         }
       });
     });
-
-    popUpClose.addEventListener('click', () => {
-      popup.style.display = 'none';
+    
+    popup.addEventListener('click', (event) => {
+      let target = event.target;
+      if(target.classList.contains('popup-close')){
+        popup.style.display = 'none';
+      } else {
+        target = target.closest('.popup-content');
+        if(!target){
+          popup.style.display = 'none';
+        }
+      }
     });
+  };
+  
+  togglePopUp();
 
-   }; 
 
-   togglePopUp();
 
+   // Табы 
 
    const tabs = () => {
     const tabHeader = document.querySelector('.service-header'),
@@ -134,5 +142,6 @@ window.addEventListener('DOMContentLoaded', function() {
     });
   };
   tabs();
+
   
   });
