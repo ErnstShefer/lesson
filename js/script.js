@@ -363,10 +363,7 @@ window.addEventListener('DOMContentLoaded', function() {
             loadMessage = 'Загрузка...',
             successMesage = 'Спасибо! Мы скоро с вами свяжемся!';
 
-      const form = document.getElementById('form1'),
-            formtwo = document.getElementById('form2'),
-            formfree = document.getElementById('form3');
-      
+    
       const input = document.querySelectorAll('input');
       maskPhone('#form3-phone');
       maskPhone('#form2-phone');
@@ -375,13 +372,15 @@ window.addEventListener('DOMContentLoaded', function() {
 
       const statusMessage = document.createElement('div');
       statusMessage.style.cssText = 'font-size: 2rem;';
+      statusMessage.style.color = 'white';
       
       
     
       
-      form.addEventListener('submit', (event) => {
+      document.addEventListener('submit', (event) => {
         event.preventDefault();
-        form.appendChild(statusMessage);
+        let target = event.target;
+        target.appendChild(statusMessage);
 
         const request = new XMLHttpRequest();
 
@@ -402,7 +401,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
         request.open('POST', './server.php');
         request.setRequestHeader('Content-Type', 'application/json');
-        const formData = new FormData(form);
+        const formData = new FormData(target);
 
         let body = {};
         for (let val of formData.entries()){
@@ -417,84 +416,7 @@ window.addEventListener('DOMContentLoaded', function() {
         request.send(JSON.stringify(body));
 
       })
-      formtwo.addEventListener('submit', (event) => {
-        event.preventDefault();
-        formtwo.appendChild(statusMessage);
-
-        const request = new XMLHttpRequest();
-
-        request.addEventListener('readystatechange', ()=>{
-          statusMessage.textContent = loadMessage;
-
-          if (request.readyState !== 4){
-            return;
-          }
-
-          if (request.status === 200){
-            statusMessage.textContent = successMesage;
-          } else {
-            statusMessage.textContent = errorMessage;
-          }
-        })
-
-
-        request.open('POST', './server.php');
-        request.setRequestHeader('Content-Type', 'application/json');
-        const formData = new FormData(formtwo);
-
-        let body = {};
-        for (let val of formData.entries()){
-
-          body[val[0]] = val[1]
-          
-          input.forEach((item) => {
-            item.value = '';
-          });
-        }
-       
-        request.send(JSON.stringify(body));
-
-      })
-      formfree.addEventListener('submit', (event) => {
-        event.preventDefault();
-        statusMessage.style.color = `#fff`;
-        formfree.appendChild(statusMessage);
-
-        const request = new XMLHttpRequest();
-
-        request.addEventListener('readystatechange', ()=>{
-          statusMessage.textContent = loadMessage;
-
-          if (request.readyState !== 4){
-            return;
-          }
-
-          if (request.status === 200){
-            statusMessage.textContent = successMesage;
-          } else {
-            statusMessage.textContent = errorMessage;
-          }
-
-        });
-
-
-        request.open('POST', './server.php');
-        request.setRequestHeader('Content-Type', 'application/json');
-        const formData = new FormData(formfree);
-
-        let body = {};
-        for (let val of formData.entries()){
-
-          body[val[0]] = val[1]
-          
-          input.forEach((item) => {
-            item.value = '';
-          });
-        }
-       
-        request.send(JSON.stringify(body));
-
-      })
+      
 
     }
 
