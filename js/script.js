@@ -360,9 +360,9 @@ window.addEventListener('DOMContentLoaded', function() {
     const sendtForm = () => {
 
       const errorMessage = 'Что то пошло не так...',
-            loadMessage = 'Загрузка...',
+            loadMessage  = "<img src=\'images/anim.gif' width='30' height='30'>",
             successMesage = 'Спасибо! Мы скоро с вами свяжемся!';
-
+           
     
       const input = document.querySelectorAll('input');
       maskPhone('#form3-phone');
@@ -373,19 +373,18 @@ window.addEventListener('DOMContentLoaded', function() {
       const statusMessage = document.createElement('div');
       statusMessage.style.cssText = 'font-size: 2rem;';
       statusMessage.style.color = 'white';
-      
-      
     
-      
+
       document.addEventListener('submit', (event) => {
         event.preventDefault();
         let target = event.target;
         target.appendChild(statusMessage);
+      
 
         const request = new XMLHttpRequest();
 
         request.addEventListener('readystatechange', ()=>{
-          statusMessage.textContent = loadMessage;
+          statusMessage.innerHTML = loadMessage;
 
           if (request.readyState !== 4){
             return;
