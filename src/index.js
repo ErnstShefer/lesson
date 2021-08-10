@@ -8,9 +8,10 @@
     import check from './modules/check';
     import calc from './modules/calc';
     import sendForm from './modules/sendForm';
+    import maskPhone from './modules/maskPhone';
     // timer
     
-    countTimer('6 august 2021');
+    countTimer('13 august 2021');
     
     // Menu
 
@@ -59,3 +60,6 @@
 
     
     sendForm();
+
+    // маска для поля телефона
+  maskPhone('#form1-phone, #form2-phone, #form3-phone');

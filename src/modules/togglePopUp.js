@@ -8,7 +8,7 @@ const togglePopUp = () => {
     let flyAnimate = () => {
       count++;
       if(count < 60.1){
-        popupContent.style.transform = `rotate(${count * 6}deg)`;
+        popupContent.style.transform = `rotate(${count * 12}deg)`;
       } else {
         cancelAnimationFrame(flyInterval);
         count = 0;

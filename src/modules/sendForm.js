@@ -1,50 +1,71 @@
 const sendForm = () => {
-    const errorMessage = 'Что-то пошло не так...',
-          loadMessage = "<img src=\'images/anim.gif' width='30' height='30'>",
-          successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+  const errorMessage = 'Что-то пошло не так...',
+        loadMessage =  "<img src=\'images/anim.gif' width='30' height='30'>",
+        successMessage = 'Спасибо! Мы скоро с вами свяжемся!',
+        input = document.querySelectorAll('input'),
+        statusMessage = document.createElement('div');
+  let valid = false;
 
-    const input = document.querySelectorAll('input');
-    
-    const statusMessage = document.createElement('div');
-    statusMessage.style.csstext = 'font-size: 2rem;';
-    statusMessage.style.color = 'white';
+  statusMessage.style.csstext = 'font-size: 2rem;';
+  statusMessage.style.color = 'white';
 
-    const postData = (body) => {
-      return fetch('./server.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body),
-      });
+  const postData = (body) => {
+    return fetch('./server.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body),
+    });
   };
+
+  document.addEventListener('input', (event) => {
+    if(/^[a-z]+@[a-z]+\.[a-z]{2,3}$/.test(event.target.value)){
+      valid = true;
+    } else {
+      valid = false;
+    }
+  });
 
   document.addEventListener('submit', (event) => {
     event.preventDefault();
     let target = event.target;
-    target.appendChild(statusMessage);
-    statusMessage.innerHTML = loadMessage;
-    const formData = new FormData(target);
-    let body = {};
-    formData.forEach((val, key) => {
-      body[key] = val;
-    });
-    input.forEach((item) => {
-      item.value = '';
-    });
-    postData(body)
-            .then((response) => {
-              if(response.status !== 200){
-                throw new Error('Status network not 200');
-              }
-              statusMessage.textContent = successMessage;
-            })
-            .catch(error => {
-              statusMessage.textContent = errorMessage;
-              console.error(error);
-            });
+    if(valid === true){
+      target.appendChild(statusMessage);
+      statusMessage.innerHTML = loadMessage;
+      const formData = new FormData(target);
+      let body = {};
+      formData.forEach((val, key) => {
+        body[key] = val;
+      });
+      input.forEach((item) => {
+        item.value = '';
+      });
+      postData(body)
+              .then((response) => {
+                if(response.status !== 200){
+                  throw new Error('Status network not 200');
+                }
+                statusMessage.textContent = successMessage;
+                setTimeout(() => {
+                  statusMessage.textContent = '';
+                }, 5000);
+              })
+              .catch(error => {
+                statusMessage.textContent = errorMessage;
+                console.error(error);
+                setTimeout(() => {
+                  statusMessage.textContent = '';
+                }, 5000);
+              });
+    } else {
+      return;
+    }
+    valid = false;
   });
-    
-  };
+};
 
-  export default sendForm;
+export default sendForm;
+
+
+ 
