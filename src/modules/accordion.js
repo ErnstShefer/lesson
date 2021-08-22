@@ -1,26 +1,32 @@
-const accordion = () =>{
+const accordeon = () => {
+  const accordeon = document.querySelector('.accordeon'),
+        element = accordeon.querySelectorAll('.element');
 
-    const accordionWrap = document.getElementsByClassName('element');
-    
-    for ( let i = 0; i<accordionWrap.length; i++){
-        accordionWrap[i].addEventListener('click' ,function(){
-            this.classList.toggle('active')
-        })
-    }
-    
-    const addStyle = () => {
-        let style = document.createElement('style');
-        style.textContent = `
-          .accordeon .element.active .element-content {
-            display: block !important;
-          }
-          .accordeon .element-content {
-            display: none !important;
-          }
-        `;
-        document.head.appendChild(style);
-      };
-      addStyle();
+  const addStyle = () => {
+    let style = document.createElement('style');
+    style.textContent = `
+      .accordeon .element.active .element-content {
+        display: block !important;
+      }
+      .accordeon .element-content {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+  };
+  addStyle();
+
+  for(let item of element) {
+    item.addEventListener('click', function() {
+      if(this.classList.contains('active')){
+        this.classList.remove('active');
+      } else {
+        for(let elem of element){
+          elem.classList.remove('active');
+        }
+        this.classList.add('active');
+      }
+    });
+  }
 };
-
-export default accordion;
+export default accordeon;
